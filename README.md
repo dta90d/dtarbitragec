@@ -1,2 +1,2 @@
 # dtarbitragec
-Advanced asynchronous Node.js cryptocurrency arbitrage master.
+Advanced highly customizable asynchronous cryptocurrency arbitrage master (bot) written for Node.js.
