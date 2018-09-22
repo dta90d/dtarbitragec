@@ -21,6 +21,7 @@ Note that browser frontend do not include the bots' activity monitoring yet.
 
 The whole idea of the program is to monitor difference between different cryptocurrency markets and hit it when it's big.
 Simple math tells us, that if when the spread is high we sell on one market and buy on the other and reverse the operation when the spread is low (or high in the opposite direction) we just earn free money. (Not so free actually, considering the money freezing due to waiting for that situation to occur).
+
 That said, dtarbitragec monitors markets set with './configure markets' command, activates bots based on strategy configured with './configure bot' and finance settings configured with './configure finance', using api keys stored through './configure keys', sending mail notifications from real or simulated bots configured via './configure mail' command and writes down monitored data to './textdb' local directory if the history mode is enabled using './configure modes' command.
 
 Monitored data (spreads) is sent to localhost:3001 via socket interface; bots' progress is not - it is stored in './botV1' local directory instead.
@@ -32,7 +33,9 @@ dtarbitragec is written for Linux in the first place, but if you wish to run it 
 ### Requirements
 
 Node.js ^8.0.0, npm, bash/sh, curl, cat, sed, perl (optional).
+
 Most of these is by default included in major Linux distributions, so you basically need to install nodejs/npm on your system.
+
 If you wish to deploy on a Windows/other system, it is possible too, all you need is to install the software listed above first and may be do some magic after that.
 
 ### Installation
@@ -80,6 +83,7 @@ This will open configuration file and some instructions.
 #### Bot (Perl required for configuration)
 
 Bots' settings are called botdata. It can be configured dynamically even if the program is up and the bots are active. Newly configured data will apply only to future bots and won't disrupt the running ones.
+
 Botdata is an array of cases telling bots whether to buy or sell or wait or whatever.
 
 Basic structure of each bot (element in botdata array) is:
