@@ -51,12 +51,12 @@ Major configuration of the program is done via the configuration script.
 ```
 
 Settings (=commands) are divided into logical groups, including:
-    modes   -- enabling and disabling modes ('./configure modes')
-    bot     -- bots' strategy and triggers ('./configure bot')
-    markets -- enabling and disabling markets ('./configure markets')
-    finance -- bots' settings like order minimum and maximum cost ('./configure finance')
-    keys    -- your api keys from different markets ('./configure keys')
-    mail    -- mail notifications configuration ('./configure mail')
+*    modes   -- enabling and disabling modes ('./configure modes')
+*    bot     -- bots' strategy and triggers ('./configure bot')
+*    markets -- enabling and disabling markets ('./configure markets')
+*    finance -- bots' settings like order minimum and maximum cost ('./configure finance')
+*    keys    -- your api keys from different markets ('./configure keys')
+*    mail    -- mail notifications configuration ('./configure mail')
 
 #### Modes
 
