@@ -1,4 +1,4 @@
-[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![License: GPL v4](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 # gtarbitragec - Advanced highly customizable asynchronous cryptocurrency arbitrage bot written for Node.js.
 
@@ -22,7 +22,7 @@ Note that browser frontend do not include the bots' activity monitoring yet.
 
 ## Getting started
 
-dtarbitragec is written for Linux in the first place, but if you wish to run it on other platforms you can. At your own risk!
+dtarbitragec is written for Linux in the first place, but if you wish to run it under other platforms you can. At your own risk!
 
 ### Requirements
 
@@ -38,7 +38,7 @@ cd dtarbitragec
 npm install
 ```
 
-Installation script will guide you through basic installation and configuration.
+Installation script will guide you through the basic installation and configuration.
 
 ### Configuration and settings
 
@@ -61,9 +61,9 @@ Settings (=commands) are divided into logical groups, including:
 #### Modes
 
 There are three modes available now:
-    bots_mode           -- activate bots, that do financial operations based on strategy contained in botdata ('./configure bot') and static options in finance data ('./configure finance')
-    simulate_bots       -- bots do not buy or sell really, so there's no need for finance and keys settings, but botdata is required still, as simulation is its test. These bots are simplier that real ones and applied only for testing if your strategy is reliable or not.
-    history             -- writes down all the monitored data to local directory ('./textdb'), that can be analyzed afterwards.
+*    bots\_mode           -- activate bots, that do financial operations based on strategy contained in botdata ('./configure bot') and static options in finance data ('./configure finance')
+*    simulate\_bots       -- bots do not buy or sell really, so there's no need for finance and keys settings, but botdata is required still, as simulation is its test. These bots are simplier that real ones and applied only for testing if your strategy is reliable or not.
+*    history             -- writes down all the monitored data to local directory ('./textdb'), that can be analyzed afterwards.
 
 To configure modes simply run:
 ```shell
@@ -78,12 +78,12 @@ Bots' settings are called botdata. It can be configured dynamically even if the 
 Botdata is an array of cases telling bots whether to buy or sell or wait or whatever.
 
 Basic structure of each bot (element in botdata array) is:
-coin         -- pair/currency to watch for
-high\_market -- information about the market we suppose the bid to be higher than the other's ask
-low\_market  -- information about the market we suppose the ask to be lower than the other's bid
-spread\_high -- bid / ask (with a big difference)
-spread\_low  -- bid / ask (with a small difference)
-wait         -- when to open the deal an activate the bot - high, low, both or none.
+*   coin         -- pair/currency to watch for
+*   high\_market -- information about the market we suppose the bid to be higher than the other's ask
+*   low\_market  -- information about the market we suppose the ask to be lower than the other's bid
+*   spread\_high -- bid / ask (with a big difference)
+*   spread\_low  -- bid / ask (with a small difference)
+*   wait         -- when to open the deal an activate the bot - high, low, both or none.
 
 An example of real botdata:
 ```JSON
@@ -140,12 +140,12 @@ and turn on/off some of the markets in the configuration file. This will affect 
 
 #### Finance
 Another peace of settings for the bot, but more static one:
-min\_cost            -- set minimal cost for each order for each margin currency (USD, BTC, ETH, EUR)
-max\_cost            -- set maximal cost for each order for each margin currency (USD, BTC, ETH, EUR)
-balance\_buffer      -- buffer to remain on balance for each margin currency (USD, BTC, ETH, EUR)
-amount\_mult         -- parameter to lower the amount attampting to buy/sell from the orderbook to guarantee the deal
-limit\_price\_buffer -- parameter to heighten/lower buy/sell price to guarantee the first ask/bid.
-commission           -- your commission on each order for each market
+*    min\_cost            -- set minimal cost for each order for each margin currency (USD, BTC, ETH, EUR)
+*    max\_cost            -- set maximal cost for each order for each margin currency (USD, BTC, ETH, EUR)
+*    balance\_buffer      -- buffer to remain on balance for each margin currency (USD, BTC, ETH, EUR)
+*    amount\_mult         -- parameter to lower the amount attampting to buy/sell from the orderbook to guarantee the deal
+*    limit\_price\_buffer -- parameter to heighten/lower buy/sell price to guarantee the first ask/bid.
+*    commission           -- your commission on each order for each market
 
 To configure these settings simply run:
 ```shell
