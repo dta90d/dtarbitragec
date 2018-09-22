@@ -1,6 +1,7 @@
 [![License: GPL v4](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-# gtarbitragec - Advanced highly customizable asynchronous cryptocurrency arbitrage bot written for Node.js.
+# gtarbitragec - cryptocurrency arbitrage master.
+Advanced highly customizable asynchronous cryptocurrency arbitrage bot written for Node.js
 
 ## Usage
 
@@ -18,7 +19,11 @@ Note that browser frontend do not include the bots' activity monitoring yet.
 
 ## Description
 
+The whole idea of the program is to monitor difference between different cryptocurrency markets and hit it when it's big.
+Simple math tells us, that if when the spread is high we sell on one market and buy on the other and reverse the operation when the spread is low (or high in the opposite direction) we just earn free money. (Not so free actually, considering the money freezing due to waiting for that situation to occur).
+That said, dtarbitragec monitors markets set with './configure markets' command, activates bots based on strategy configured with './configure bot' and finance settings configured with './configure finance', using api keys stored through './configure keys', sending mail notifications from real or simulated bots configured via './configure mail' command and writes down monitored data to './textdb' local directory if the history mode is enabled using './configure modes' command.
 
+Monitored data (spreads) is sent to localhost:3001 via socket interface; bots' progress is not - it is stored in './botV1' local directory instead.
 
 ## Getting started
 
@@ -47,21 +52,21 @@ All configuration files are written in JSON, so be aware of the syntax there.
 Major configuration of the program is done via the configuration script.
 
 ```shell
-./configure [-e <editor>] <command> ARGS
+./configure [-e <editor>] <command> [ARGS]
 ```
 
 Settings (=commands) are divided into logical groups, including:
-*    modes   -- enabling and disabling modes ('./configure modes')
-*    bot     -- bots' strategy and triggers ('./configure bot')
-*    markets -- enabling and disabling markets ('./configure markets')
-*    finance -- bots' settings like order minimum and maximum cost ('./configure finance')
-*    keys    -- your api keys from different markets ('./configure keys')
-*    mail    -- mail notifications configuration ('./configure mail')
+*    modes   -- enabling and disabling modes ('./configure modes').
+*    bot     -- bots' strategy and triggers ('./configure bot').
+*    markets -- enabling and disabling markets ('./configure markets').
+*    finance -- bots' settings like order minimum and maximum cost ('./configure finance').
+*    keys    -- your api keys from different markets ('./configure keys').
+*    mail    -- mail notifications configuration ('./configure mail').
 
 #### Modes
 
 There are three modes available now:
-*    bots\_mode           -- activate bots, that do financial operations based on strategy contained in botdata ('./configure bot') and static options in finance data ('./configure finance')
+*    bots\_mode           -- activate bots, that do financial operations based on strategy contained in botdata ('./configure bot') and static options in finance data ('./configure finance'), using api keys, contained in keys data ('./configure keys').
 *    simulate\_bots       -- bots do not buy or sell really, so there's no need for finance and keys settings, but botdata is required still, as simulation is its test. These bots are simplier that real ones and applied only for testing if your strategy is reliable or not.
 *    history             -- writes down all the monitored data to local directory ('./textdb'), that can be analyzed afterwards.
 
@@ -78,11 +83,11 @@ Bots' settings are called botdata. It can be configured dynamically even if the 
 Botdata is an array of cases telling bots whether to buy or sell or wait or whatever.
 
 Basic structure of each bot (element in botdata array) is:
-*   coin         -- pair/currency to watch for
-*   high\_market -- information about the market we suppose the bid to be higher than the other's ask
-*   low\_market  -- information about the market we suppose the ask to be lower than the other's bid
-*   spread\_high -- bid / ask (with a big difference)
-*   spread\_low  -- bid / ask (with a small difference)
+*   coin         -- pair/currency to watch for.
+*   high\_market -- information about the market we suppose the bid to be higher than the other's ask.
+*   low\_market  -- information about the market we suppose the ask to be lower than the other's bid.
+*   spread\_high -- bid / ask (with a big difference).
+*   spread\_low  -- bid / ask (with a small difference).
 *   wait         -- when to open the deal an activate the bot - high, low, both or none.
 
 An example of real botdata:
@@ -140,12 +145,12 @@ and turn on/off some of the markets in the configuration file. This will affect 
 
 #### Finance
 Another peace of settings for the bot, but more static one:
-*    min\_cost            -- set minimal cost for each order for each margin currency (USD, BTC, ETH, EUR)
-*    max\_cost            -- set maximal cost for each order for each margin currency (USD, BTC, ETH, EUR)
-*    balance\_buffer      -- buffer to remain on balance for each margin currency (USD, BTC, ETH, EUR)
-*    amount\_mult         -- parameter to lower the amount attampting to buy/sell from the orderbook to guarantee the deal
+*    min\_cost            -- set minimal cost for each order for each margin currency (USD, BTC, ETH, EUR).
+*    max\_cost            -- set maximal cost for each order for each margin currency (USD, BTC, ETH, EUR).
+*    balance\_buffer      -- buffer to remain on balance for each margin currency (USD, BTC, ETH, EUR).
+*    amount\_mult         -- parameter to lower the amount attampting to buy/sell from the orderbook to guarantee the deal.
 *    limit\_price\_buffer -- parameter to heighten/lower buy/sell price to guarantee the first ask/bid.
-*    commission           -- your commission on each order for each market
+*    commission           -- your commission on each order for each market.
 
 To configure these settings simply run:
 ```shell
