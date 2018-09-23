@@ -32,7 +32,7 @@
     "arbitrage"
   ],
   "author": "dta90d",
-  "license": "GNU GPLv3",
+  "license": "LGPL-3.0-only",
   "bugs": {
     "url": "https://github.com/dta90d/dtarbitragec/issues"
   },
