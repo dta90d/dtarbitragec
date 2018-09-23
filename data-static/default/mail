@@ -1,0 +1,9 @@
+{
+    "enable" : false,
+    "mail"   : "someoutbox",
+    "pass"   : "hardpassword",
+    "SEND_TO": [
+        "you@gmail.com",
+        "somebody@xxx.com"
+    ]
+}
