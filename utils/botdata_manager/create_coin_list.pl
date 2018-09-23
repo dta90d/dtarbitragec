@@ -14,7 +14,7 @@ use Data::Dumper;
 my $RES_FILE = $ARGV[0] ? $ARGV[0] : '../../data/coins';
 
 my $output   = JSON->new->canonical;
-my $filename = '../../data/coin_dict';
+my $filename = $ARGV[1] ? $ARGV[1] : '../../data/coin_dict';
 
 open(my $coin_dict_file, '<', $filename);
 
@@ -25,7 +25,6 @@ while(<$coin_dict_file>) {
 close($coin_dict_file);
 
 my $coin_dict = decode_json $buffer;
-
 
 my %result;
 for my $market (sort keys %$coin_dict) {
@@ -42,11 +41,11 @@ for my $market (sort keys %$coin_dict) {
 my $coins = $output->encode( \%result );
 
 my $space = ' ' x 4;
-$coins =~ s/({|\[|,)/$1\n/g;
+$coins =~ s/(\{|\[|,)/$1\n/g;
 $coins =~ s/("\w)/$space$1/g;
 $coins =~ s/("\w+_\w+")/$space$1/g;
 $coins =~ s/(\])/\n$space$1/g;
-$coins =~ s/(})/\n$1/g;
+$coins =~ s/(\})/\n$1/g;
 
 open(my $res, '>', $RES_FILE);
 say $res $coins;
