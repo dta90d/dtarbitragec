@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>dtarbitragec</title>
+    <meta name="description"
+          content="Advanced highly customizable asynchronous cryptocurrency arbitrage bot written for Node.js."/>
+    <meta name="Keywords"
+          content="arbitrage-opportunity, trading-bot, bitcoin, litecoin, cryptocurrency, altcoins, ethereum">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    <link rel="manifest" href="img/manifest.json">
+    <link rel="mask-icon" href="img/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="img/favicon.ico">
+    <meta name="msapplication-config" content="images/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+
+    <style>
+        /* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden */
+        body {
+            overflow: auto;
+        }
+
+        .loader {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: url('img/preloader.gif') 50% 50% no-repeat white;
+        }
+
+        .socket-loader {
+            width: 200px;
+            margin: auto;
+            height: 200px;
+            background: url('img/preloader2.gif') 50% 50% no-repeat white;
+
+        }
+    </style>
+
+    <link rel="stylesheet"  type="text/css"  href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css"   href="./css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/animate.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="fonts/cryptocoins.css">
+    <link rel="stylesheet" href="fonts/cryptocoins-colors.css">
+</head>
+
+<body>
+
+
+<div class="loader"></div>
+
+
+<section id="service">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="block-top">
+                    <div class="service-header">
+                        <h1 class="animation-box wow bounceIn animated">Cryptocurrency Arbitrage Master</h1>
+                        <p class="animation-box wow bounceInDown">dtarbitragec by dta90d.
+                        </p>
+
+
+                        <div class="socket-loader"></div>
+
+                        <div class="best-pair wow animated fadeIn">
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div><!-- .col-md-12 close -->
+        </div><!-- row close -->
+        <div class="row">
+            <div class="col-md-12 b-bot">
+                <div class="block-bottom">
+                    <div class="service-tab ">
+                        <!-- Nav tabs -->
+                        <div class="left-panel col-md-4 col-xs-12  wow animated fadeInLeft">
+                            <div class="market-names-list col-md-12 col-xs-6">
+                                <h1 id="markets-title">Markets: <input class="search" id="market-search"></h1>
+                                <ul class="badhon-tab " id="market-list" role="tablist">
+                                    <li class="active">
+                                        <a href="#" aria-controls="home" role="tab" data-toggle="tab">
+                                            <i class="fa fa-check-square-o"></i>Loading...</a>
+                                    </li>
+                                </ul>
+                                <a class="remove-all" href="javascript:addRemoveAll('markets')">Check/Un-check all</a>
+                            </div>
+
+                            <div class="coin-names-list col-md-12 col-xs-6">
+                                <h1 id="coins-title">Coins: <input class="search" id="coin-search"></h1>
+
+                                <ul id='coin-list' class="badhon-tab" role="tablist">
+                                    <li class="active">
+                                        <a href="#" aria-controls="home" role="tab" data-toggle="tab">
+                                            <i class="fa fa-check-square-o"></i>Loading...</a>
+                                    </li>
+                                </ul>
+                                <a class="remove-all" href="javascript:addRemoveAll('coins')">Check/Un-check all</a>
+                            </div>
+                        </div>
+
+                        <!-- Tab panes -->
+                        <div class="tab-pane active edit-tab col-md-8 col-xs-12" id="home">
+                            <div class="app-pane">
+                                <h1>SPREADS:</h1>
+                                <div class="socket-loader"></div>
+                                <ul id="highest"></ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div><!-- .col-md-12 close -->
+        </div><!-- row close -->
+    </div><!-- .container close -->
+</section><!-- #service close -->
+
+
+<script id="coin-list-template" type="text/x-handlebars-template">
+    <li class="active">
+        <a href="javascript:addRemoveCoin('{{coin}}')" aria-controls="home" role="tab" data-toggle="tab">
+            <i class="fa fa-check-square-o" id="check-{{coin}}"> </i> <span>{{coin}} </span> </a>
+    </li>
+</script>
+
+
+<script id="market-list-template" type="text/x-handlebars-template">
+    <li class="active">
+        <a href="javascript:addRemoveMarket('{{market}}')" aria-controls="home" role="tab" data-toggle="tab">
+            <i class="fa fa-check-square-o" id="check-{{market}}"></i> {{market}}</a>
+    </li>
+</script>
+
+<script id="high-template" type="text/x-handlebars-template">
+    <li class="coin-info-high " data-coin="{{coin}}" data-market1="{{market1}}" data-market2="{{market2}}">
+        <h1>Difference of <strong>{{coin}}</strong> between BID on <strong>{{market1}}</strong> and ASK on <strong> {{market2}}</strong>
+            is
+            <strong> {{diff}}%</strong></h1>
+        <div class="coin">
+            <i class="cc-{{coin}} {{coin}} cc"> </i>
+            <p class="coin-name">{{coin}}</p>
+            <p class="coin-prices wow animated fadeIn">{{diff}}%</p>
+            <p class="coin-markets">
+               BID <a>{{market1}}</a>: {{market1price}}
+                /
+               ASK <a>{{market2}}</a>: {{market2price}}
+            </p>
+        </div>
+<!--        <a href="javascript:history('{{coin}}');">Show history</a> <a class="remove" href="#!" onclick="remove(this, 'high')">
+        Remove this opportunity </a>-->
+    </li>
+</script>
+
+<script id="best-template" type="text/x-handlebars-template"></script>
+
+<section id="footer" class="wrapper">
+    <div class="container text-center">
+        <div class="footer-logo">
+            <h1 class="text-center animation-box wow bounceIn animated">dtarbitragec</h1>
+        </div>
+        <ul class="social-icons text-center">
+            <li class="wow animated fadeInLeft github"><a href="https://github.com/dta90d/dtarbitragec"><i
+                    class="fa fa-github"></i></a>
+        </ul>
+
+        <div class="copyright">
+            <div class="credits">
+                Made by <a href="https://github.com/manu354" target="_blank">dta90d</a>
+            </div>
+            <div>©2017-2018 dta90d, All Rights Reserved</div>
+        </div>
+    </div><!-- container -->
+</section>
+
+<script defer src="js/jquery-1.11.2.min.js"></script>
+<script defer src="js/handlebars.js"></script>
+<script defer src="js/wow.min.js"></script>
+<!--<script defer src="js/bootstrap.min.js"></script>-->
+<script defer src="js/socket.io.js"></script>
+<script defer src="js/script.js"></script>
+
+</body>
+</html>
