@@ -28,7 +28,7 @@ So, the most important task in setting up bots' strategy is to specify the highe
 
 You can run infinite numbers of bots simultaneously - they won't get confused or leave you without money due to misunderstandings. Bots are constructed to run simultaneously - they have queues, multiple cheks of available balance, strong logics and good sustainability to errors, disconnections and rebootings of the system. All bots save their progress after each valueable action, that's why you can reboot your system right in the process of bots doing some trading, and bots will revive after restart (not recommended still).
 
-Monitored data (spreads) is sent to localhost:3001 via socket interface; bots' progress is not - it is stored in './botV1' local directory instead.
+Monitored data (spreads) is sent to localhost:3001 via socket interface; bots' progress is not - it is stored in './botV1' local directory instead. Logs of bots' operatoins are written into './log' directory.
 
 ## Getting started
 
@@ -83,6 +83,7 @@ To configure modes simply run:
 ```
 
 This will open configuration file and some instructions.
+Note: you need to restart the program for modes change to work.
 
 #### Bot (Perl required for configuration)
 
