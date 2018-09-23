@@ -49,6 +49,7 @@ install_perl() {
     echo Installing perl.
     export PERLBREW_ROOT=$PERLBREW_ROOT
     curl -L https://install.perlbrew.pl | sh || exit 1
+    source "$PERLBREW_ROOT/etc/bashrc"
     "$PERLBREW_ROOT/bin/perlbrew" -q --notest install --as "$PERL_NAME" perl-stable || exit 1
     sed -i 's#^PERL_BIN_DIR=.*$#PERL_BIN_DIR="'"$PERL_BIN_DIR"'"#' "$CONFIGURE" # Write perl destination to config.
 }
