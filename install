@@ -126,6 +126,7 @@ next() { # Wait for user to read.
 
 # Script.
 sed -i 's#^D_PWD=.*$#D_PWD="'"$D_PWD"'"#' "$CONFIGURE"
+chmod +x "$CONFIGURE"
 mkdir -p $LOG_DIR
 clear
 echo Installing dtarbitragec program.
