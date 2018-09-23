@@ -20,10 +20,10 @@ m_help() {
     echo "       mail            mail notifications configuration"
 }
 
-PERL_BIN_DIR="/home/the_creator_of_/w/BRAT/cryptocurrency-arbitrage-master/perl/perls/stable/bin"
-PERL_LIB_DIR="/home/the_creator_of_/w/BRAT/cryptocurrency-arbitrage-master/perl/perls/stable/lib/perl5"
+PERL_BIN_DIR=""
+PERL_LIB_DIR=""
 
-D_PWD="/home/the_creator_of_/w/BRAT/cryptocurrency-arbitrage-master"
+D_PWD="."
 D_DATA="$D_PWD/data"
 D_HELP="$D_PWD/data-static/man"
 D_DEFAULT="$D_PWD/data-static/default"
