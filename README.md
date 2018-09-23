@@ -24,6 +24,10 @@ Simple math tells us, that if when the spread is high we sell on one market and 
 
 That said, dtarbitragec monitors markets set with './configure markets' command, activates bots based on strategy configured with './configure bot' and finance settings configured with './configure finance', using api keys stored through './configure keys', sending mail notifications from real or simulated bots configured via './configure mail' command and writes down monitored data to './textdb' local directory if the history mode is enabled using './configure modes' command.
 
+So, the most important task in setting up bots' strategy is to specify the highest and the lowest spread to react to for each market and each currency. Hopefully './configure bot' program can handel this task.
+
+You can run infinite numbers of bots simultaniously - they won't get confused or leave you without money due to misunderstandings. Bots are constructed to run simultaniously - they have queues, multiple cheks of available balance, strong logics and good sustainability to errors, disconnections and rebootings of the system. All bots save their progress after each valueable action, that's why you can reboot your system right in the process of bots doing some trading, and bots will revive after restart (not recommended still).
+
 Monitored data (spreads) is sent to localhost:3001 via socket interface; bots' progress is not - it is stored in './botV1' local directory instead.
 
 ## Getting started
