@@ -1,0 +1,11 @@
+{
+    "bitfinex": {
+        "key": "sdssdsd",
+        "secret": "dsdsdjsijd"
+    },
+
+    "kraken": {
+        "key": "sdsdsdsd",
+        "secret": "dsdscsdcsdcsc"
+    }
+}
