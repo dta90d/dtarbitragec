@@ -228,7 +228,9 @@ case "$1" in
         c_mail
         ;;
     ("")
-        if [ $O_EDITOR ]; then echo Error: no command specified.; echo; fi
+        if [ $O_EDITOR ]; then echo Error: no command specified.; echo
+        else echo Error: no editor specified.; echo
+        fi
         m_help
         ;;
     (*)
