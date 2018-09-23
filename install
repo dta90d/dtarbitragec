@@ -1,241 +1,40 @@
-# Installation script for dtarbitragec. Invoked after npm install.
-# Written by dta90d on 2018.09.17.
-
-# There are three parts of installation:
-# 1. Utils ('./utils/*') installation.
-# 2. Settings stored in './data/' directory
-# 3. Settings hardcoded to the dtarbitragec.js
-#
-# The most important part is utils installation that needs some Perl modules to be installed, as I for some reason wrote them in Perl (as I love it).
-# Program originally was intended for the closed use only, so I thought why the hell not. Now regret it a little.
-#
-# Nevertheless, some of the perl modules need to be installed, so, firstly, Cpanminus is installed, and then the modules are installed in your currently active perl installation using Cpanminus (if you don't want your system perl to be used, consider installing local perl via something like perlbrew first. At first I thought it was a good idea to install perl via perlbrew during 'npm install', but compilation takes fuckin too long, and it is impossible to wait.)
-# So, I decided to give you some freedome and choose of three options:
-# 1) Don't use perl at all, then handle it yourself or be not able to manage the bot properly.
-# 2) Install all modules using local perl in './perl' directory that is being installed via perlbrew there.
-# 3) Do not install perl at all. (Though be unable to run some pretty utilities).
-# The modules used are: Modern::Perl, JSON, LWP::Simple, DateTime.
-#
-# Files stored in the './data/' directory are all generated during the work of the program to store some variables, except for:
-# mode, coin_dict, botdata, keys and mail files, that contains:
-#
-# modes: flag switches for two different modes: bots_mode (real buy/sell actions based on './data/botdata' configuration) and simulate_bots mode (only pretend you buy/sell real money, though mail notifications are available in this mode; also based on the same './data/botdata' configuration) and history mode (will write down all the history of currently monitored markets (pairs) in JSON format, including date, time, currency, spread, markets and their asks and bids; it starts new file every 6 hours, so each day is spread into 4 quaters). To manage these settings simply run './configure modes' command.
-# finance: these options only take place when bots_mode on. While botdata is dynamycly manageble, finance data is static, changes applied to the program only after program restart. Therefore these settings are more absolute and stable, namely: min_cost (minimum cost for each margin currency (USD, BTC, ETH, EUR) of each order), max_cost (maximum cost for each margin currency (USD, BTC, ETH, EUR) of each order), balance_buffer (buffer left on the balance for each margin currency (USD, BTC, ETH, EUR) to avoid situations like "no money for closing the deal"), amount_mult (parameter that determines what percentage of the amount available in the orderbook is taken to account, to avoid situations when our disired amount was bought right away before us), limit_price_buffer (parameter by which price on limit markets are being multiplied/divided to place or order on the first place) and commission (percentage of commission taken from each order for each market present in './lib/bot-settings.js'). To manage these settings run './configure finance' command.
-# coin_dict: a list of currently used coins and markets, that is generated from './data-static/coin_dict.full' file by './utils/coin_dict_check/optimize.pl' script (run './configure coins' or './configure markets' to manage these settings).
-# botdata: an array of cases for bot to react to and execute sertain operations (buy/sell). It is a strategy for the bot, that is generated using the BotdataManager.pm utility (run './configure bot' to manage these settings).
-# keys: keys and secrets for each market, that the bot can use in './lib/bot-settings.js' functions (run './configure keys' to manage these settings).
-# mail: the switch (on/off), outbox (gmail), password and unlimited inboxes for the email notifications mechanics, implemented in './lib/mail.js' file (run './configure mail' to manage these settings).
-
-# Settings.
-D_PWD=`pwd`
-
-PERL_MODULES_REQUIRED="Modern::Perl JSON"
-PERL_MODULES_OPTIONAL="LWP::Simple DateTime DateTime::Format::ISO8601 Chart::Clicker"
-PERLBREW_ROOT="$D_PWD/perl"
-PERL_NAME="stable"
-PERL_DIR="$PERLBREW_ROOT/perls/$PERL_NAME" # For cpanm to install.
-PERL_BIN_DIR="$PERL_DIR/bin" # Perlbrew perl and cpanm location.
-PERL_LIB_DIR="$PERL_DIR/lib/perl5" # For perl @INC to search -> ./configure
-
-CONFIGURE="$D_PWD/configure" # Configure program destination.
-A_CONFIGURE=""               # Arguments passed to configure program
-O_EDITOR=""                  # Text editor to use in configure program
-
-LOG_DIR="$D_PWD/log" # Create log directory.
-
-# Functions
-install_perl() {
-    echo
-    echo Installing perl.
-    export PERLBREW_ROOT=$PERLBREW_ROOT
-    curl -L https://install.perlbrew.pl | sh || exit 1
-    source "$PERLBREW_ROOT/etc/bashrc"
-    "$PERLBREW_ROOT/bin/perlbrew" -q --no-patchperl --notest install --as "$PERL_NAME" perl-stable || exit 1
-    sed -i 's#^PERL_BIN_DIR=.*$#PERL_BIN_DIR="'"$PERL_BIN_DIR"'"#' "$CONFIGURE" # Write perl destination to config.
+{
+  "name": "dtarbitragec",
+  "version": "1.0.0",
+  "description": "Advanced highly customizable asynchronous cryptocurrency arbitrage bot written for Node.js",
+  "main": "dtarbitragec.js",
+  "engines": {
+    "node": "^8.0.0"
+  },
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "express": "^4.15.3",
+    "helmet": "^3.6.1",
+    "request": "^2.81.0",
+    "socket.io": "^2.0.3",
+    "nodemailer": "^4.1.1"
+  },
+  "scripts": {
+    "postinstall": "sh ./install",
+    "start": "node dtarbitragec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dta90d/dtarbitragec.git"
+  },
+  "keywords": [
+    "bitfinex",
+    "bittrex",
+    "kraken",
+    "hitbtc",
+    "poloniex",
+    "cryptocurrency",
+    "arbitrage"
+  ],
+  "author": "dta90d",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/dta90d/dtarbitragec/issues"
+  },
+  "homepage": "https://github.com/dta90d/dtarbitragec"
 }
-
-install_cpanm() {
-    echo
-    echo Installing cpanminus.
-    curl -L https://cpanmin.us | perl - -f -l "$PERL_DIR" App::cpanminus || exit 1
-    sed -i 's#^PERL_LIB_DIR=.*$#PERL_LIB_DIR="'"$PERL_LIB_DIR"'"#' "$CONFIGURE" # Write perl modules destination to config.
-}
-
-install_modules_r() {
-    echo
-    echo Required perl modules are: \'$PERL_MODULES_REQUIRED\'
-    
-    echo
-    "$PERL_BIN_DIR/cpanm" -l "$PERL_DIR" $PERL_MODULES_REQUIRED || exit 1
-}
-
-install_modules_o() {
-    echo
-    echo Optional perl modules are: \'$PERL_MODULES_OPTIONAL\'
-    echo \(Many deps: takes pretty long to install\)
-    while true; do
-        echo Proceed with installation? [y/n]:
-        read C_MODULES_OPTIONAL
-
-        case $C_MODULES_OPTIONAL in
-            (y)
-                echo
-                "$PERL_BIN_DIR/cpanm" -l "$PERL_DIR" $PERL_MODULES_OPTIONAL || echo An error occured during optional modules installation. Dig to fix this issue \(Haha\).; next
-                break
-                ;;
-            (n)
-                break
-                ;;
-            (*)
-                echo Error: invalid argument: $C_MODULES_OPTIONAL
-                continue
-                ;;
-        esac
-    done
-}
-
-run_configure() {
-    while [ ! $O_EDITOR ]; do
-        echo "Please enter the name of a text editor to use: "
-        read O_EDITOR
-    done
-    $CONFIGURE -e $O_EDITOR $A_CONFIGURE || exit 1
-}
-
-configure_botdata() {
-    echo
-    echo To configure botdata run \'./configure bot\' after the installation is finished.
-}
-
-configure_markets() {
-    echo
-    echo Configuring markets to work with. \(\'./configure markets\'\)
-    echo You are going to configure \'./data-static/coin-dict.full\' file now.
-    echo Then \'./utils/coin_dict_check/optimize.pl\' script will transform it to a proper \'./data/coin_dict\' file.
-    next
-    A_CONFIGURE="markets"
-    run_configure
-}
-
-next() { # Wait for user to read.
-    echo \[Press ENTER to continue\]
-    read
-}
-
-# Script.
-sed -i 's#^D_PWD=.*$#D_PWD="'"$D_PWD"'"#' "$CONFIGURE"
-chmod +x "$CONFIGURE"
-mkdir -p "$LOG_DIR"
-clear
-echo Installing dtarbitragec program.
-echo
-echo The installation consists of two parts:
-echo 1. Perl modules needed for the utils\' proper working \(that are written in Perl\) like:
-echo "    1) being able to manage bots' strategy and triggers ('./configure bot')"
-echo "    2) managing market settings choosing what markets to work with ('./configure markets')."
-echo 2. Global settings:
-echo "    1) enabling and disabling modes ('./configure modes')"
-echo "    2) bots' settings like order minimum and maximum cost ('./configure finance')"
-echo "    3) market api keys for the bot ('./configure keys')"
-echo "    4) mail notifications configuration ('./configure mail')"
-
-echo
-echo Let\'s begin our installation then!
-next
-
-# Configure perl.
-clear
-echo Perl configuration.
-echo Required modules are: \'$PERL_MODULES_REQUIRED\'.
-echo Optional modules are: \'$PERL_MODULES_OPTIONAL\'. \(To use some of the utilities I used when was creating the program. May need some coding involved to suite your needs.\)
-echo
-echo Choose one of the following:
-echo 1. Install perl via perlbrew and all the modules required via cpanminus to local directory \'./perl\' \(perl compilation takes pretty long time\). Requires: gcc, make, curl.
-echo 2. Install perl modules to local directory \'./perl/perls/stable/lib/perl5\'. Then, currently active perl installation will be used to run the modules. Requires: make, perl, curl.
-echo 3. Skip this step. \(Unable to use and modify the bot. Default market configuration will be used. Monitor mode.\)
-
-while true; do
-    echo
-    echo Enter your choice \(default=3\) \[1/2/3\]: 
-    read C_PERL
-    
-    if [ ! $C_PERL ]; then C_PERL=3; fi # Default.
-    case $C_PERL in
-        (1) # Perlbrew -> Cpanm -> Modules -> Botdata -> Coin_Dict
-            install_perl
-            install_cpanm
-            install_modules_r
-            install_modules_o
-            configure_botdata
-            configure_markets
-            break
-            ;;
-        (2) # Cpanm -> Modules -> Botdata -> Coin_Dict
-            install_cpanm
-            install_modules_r
-            install_modules_o
-            configure_botdata
-            A_CONFIGURE="markets"
-            configure_markets
-            break
-            ;;
-        (3) # Info
-            cp "$D_PWD/data-static/default/coin_dict.full" "$D_PWD/data/coin_dict" || ( echo "Error coping configuration from 'data-static' to 'data' has occured." && exit 1 )
-            echo
-            echo All currently available markets are turned on. Bot is not available.
-            echo If you deside to use the bot consider running npm install again and configuring perl.
-            next
-            break
-            ;;
-        (*)
-            echo Error: invalid argument: $C_PERL
-            continue
-            ;;
-    esac
-done
-
-clear
-echo "Global settings: enabling and disabling modes ('./configure modes')"
-echo You are going to configure \'./data/modes\' file now.
-next
-A_CONFIGURE="modes"
-run_configure
-
-clear
-echo "Global settings: bots' settings like order minimum and maximum cost ('./configure finance')"
-echo You are going to configure \'./data/finance\' file now.
-next
-A_CONFIGURE="finance"
-run_configure
-
-clear
-echo "Global settings: market api keys for the bot ('./configure keys')"
-echo You are going to configure \'./data/keys\' file now.
-next
-A_CONFIGURE="keys"
-run_configure
-
-clear
-echo "Global settings: mail notifications configuration ('./configure mail')"
-echo You are going to configure \'./data/mail\' file now.
-next
-A_CONFIGURE="mail"
-run_configure
-
-clear
-echo Installation and basic configuration of the dtarbitragec program is complete.
-echo Run \'npm start\' to start the program and open \'http://localhost:3001/\' in your browser to see the results of the monitor mode.
-echo
-echo To change global settings run \'./configure \<command\>\' in terminal.
-echo To change bots' strategy run \'./configure bot\'.
-echo
-echo If you have some questions left read README.md or mail me at dta90d@keemail.me.
-echo Hope dtarbitragec will help you achieving your goals.
-echo
-echo Copyright © 2018 Free Software Foundation, Inc.  License GPLv3+: GNU GPL version 3 or later \<https://gnu.org/licenses/gpl.html\>.
-echo This is free software: you are free to change and redistribute it.  There is NO WARRANTY, to the extent permitted by law.
-echo
-echo Official repository: https://github.com/dta90d/dtarbitragec
-echo Created by dta90d. 2017-2018.
-
-exit 0
