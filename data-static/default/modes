@@ -1,0 +1,5 @@
+{
+    "bots_mode"    : false,
+    "simulate_bots": false,
+    "history"      : false
+}
