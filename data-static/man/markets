@@ -1,0 +1,36 @@
+# All configuration is written in JSON. Be aware of syntax.
+# 
+# Turn on/off some of the markets. This will affect opened bots, as they won't be able to get the data from the markets after reboot.
+#
+# The only accessable option here (if you don't want to mess with the program) is "on" : "true/false" that is enabling/disabling the market. Note that the value is in double quotes there.
+#
+# Example:
+# {
+#     "kraken": {
+#         "on": "false",
+#  
+#         "XETCXXBT": "BTC_ETC",
+#         "XETHXXBT": "BTC_ETH",
+#         "XREPXXBT": "BTC_REP",
+#         "XXBTZEUR": "EUR_BTC",
+#         "XXBTZUSD": "USD_BTC",
+#         "XXMRXXBT": "BTC_XMR",
+#         "XETCXETH": "ETH_ETC",
+#         "XETCZEUR": "EUR_ETC",
+#         "XETCZUSD": "USD_ETC",
+#         "XETHZUSD": "USD_ETH",
+#         "XREPXETH": "ETH_REP",
+#         "XREPZEUR": "EUR_REP",
+#         "USDTZUSD": "USD_USDT",
+#         "XXMRZUSD": "USD_XMR",
+#         "XXMRZEUR": "EUR_XMR"
+#     },
+#     "bittrex_GO": {
+#         "on": "true",
+#  
+#         "USDT-BTC" : "USD_BTC",
+#         "USDT-ETH" : "USD_ETH",
+#         "BTC-ETH"  : "BTC_ETH"
+#     }
+# }
+#
