@@ -150,7 +150,7 @@ c_markets() {
 }
 
 c_bot() {
-    if [ ! -f "$F_BOTDATA" ]; then touch "$F_BOTDATA"; fi
+    if [ ! -f "$F_BOTDATA" ]; then echo "[]" > "$F_BOTDATA"; fi
     check_perl
     $B_PERL -I $PERL_LIB_DIR -- $B_CREATE_COIN_LIST "$D_DATA/coins" "$F_COIN_DICT"
     $B_PERL -I $PERL_LIB_DIR -- $B_BOTDATA $A_BOTDATA
