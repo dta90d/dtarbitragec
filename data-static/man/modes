@@ -1,0 +1,15 @@
+# All configuration is written in JSON. Be aware of syntax.
+#
+# There are three modes available now:
+#
+### bots_mode -- true/false -- activate bots, that do financial operations based on strategy contained in botdata ('./configure bot') and static options in finance data ('./configure finance'), using api keys, contained in keys data ('./configure keys').
+### simulate_bots -- true/false -- bots do not buy or sell really, so there's no need for finance and keys settings, but botdata is required still, as simulation is its test. These bots are simplier that real ones and applied only for testing if your strategy is reliable or not.
+### history -- true/false -- writes down all the monitored data to local directory ('./textdb'), that can be analyzed afterwards.
+#
+# An example of working configuration:
+# {
+#     "bots_mode"    : false,
+#     "simulate_bots": false,
+#     "history"      : true
+# }
+#
