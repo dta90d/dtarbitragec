@@ -1,0 +1,17 @@
+# All configuration is written in JSON. Be aware of syntax.
+#
+# API keys configuration. Needed for the bots_mode to work.
+#
+# Exapmle:
+# {
+#     "bitfinex": {
+#         "key": "super!important!key",
+#         "secret": "super!secret!secret"
+#     },
+# 
+#     "kraken": {
+#         "key": "doesanyoneusekraken",
+#         "secret": "isayno"
+#     }
+# }
+#
