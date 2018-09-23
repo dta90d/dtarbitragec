@@ -45,7 +45,7 @@ If you wish to deploy on a Windows/other system, it is possible too, all you nee
 ### Installation
 
 ```shell
-git clone https://github.com/dta90d/dtarbitragec.git
+git clone git://github.com/dta90d/dtarbitragec.git
 cd dtarbitragec
 npm install
 ```
