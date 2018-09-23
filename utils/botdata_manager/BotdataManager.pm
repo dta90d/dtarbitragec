@@ -43,7 +43,7 @@ my %KRAKEN_LEV = (
 ################################################################################
 
 
-system("perl create_coin_list.pl $F_COINS") unless -e $F_COINS;
+#system("perl create_coin_list.pl $F_COINS") unless -e $F_COINS;
 
 
 ################################# LOADING DATA #################################
