@@ -1,0 +1,16 @@
+# All configuration is written in JSON. Be aware of syntax.
+#
+# Mail notifications are available only via gmail service. Configure the outbox gmail and give the program its address and password. Note that you need to allow gmail to be used by the program.
+#
+# Example (note that outbox address do not need the @gmail.com extention):
+#
+# {
+#     "enable" : true,
+#     "mail"   : "example",
+#     "pass"   : "123456really7",
+#     "SEND_TO": [
+#         "you@keemail.me",
+#         "yourbuddy@gmail.com"
+#     ]
+# }
+#
