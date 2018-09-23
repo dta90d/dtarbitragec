@@ -156,10 +156,10 @@ echo 3. Skip this step. \(Unable to use and modify the bot. Default market confi
 
 while true; do
     echo
-    echo Enter your choice \(default=1\) \[1/2/3\]: 
+    echo Enter your choice \(default=3\) \[1/2/3\]: 
     read C_PERL
     
-    if [ ! $C_PERL ]; then C_PERL=1; fi # Default.
+    if [ ! $C_PERL ]; then C_PERL=3; fi # Default.
     case $C_PERL in
         (1) # Perlbrew -> Cpanm -> Modules -> Botdata -> Coin_Dict
             install_perl
