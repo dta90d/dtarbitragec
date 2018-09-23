@@ -15,7 +15,7 @@
     "nodemailer": "^4.1.1"
   },
   "scripts": {
-    "postinstall": "sh install",
+    "postinstall": "sh ./install",
     "start": "node dtarbitragec"
   },
   "repository": {
