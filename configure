@@ -35,6 +35,7 @@ F_DEFAULT="" # Default config
 F_TMP=""     # Tmp file
 
 F_MODES="$D_DATA/modes"
+F_COIN_DICT="$D_DATA/coin_dict"
 F_MARKETS="$D_PWD/data-static/coin_dict.full"
 F_FINANCE="$D_DATA/finance"
 F_KEYS="$D_DATA/keys"
@@ -54,6 +55,7 @@ F_HELP_MAIL="$D_HELP/mail"
 
 B_PERL="$PERL_BIN_DIR/perl"
 B_BOTDATA="$D_UTILS/botdata_manager/BotdataManager.pm"
+B_CREATE_COIN_LIST="$D_UTILS/botdata_manager/create_coin_list.pl"
 B_OPTIMIZE="$D_UTILS/coin_dict_check/optimize.pl"
 
 M_EDITOR="Please enter the name of a text editor to use: "
@@ -80,7 +82,7 @@ e_editor() {
     exit 1
 }
 
-create_tmp() { #TODO mash help with #####
+create_tmp() {
     HELP=`cat $F_HELP`
     if [ -f $F_CONFIG ]; then
         CONFIG=`cat $F_CONFIG`
@@ -147,6 +149,7 @@ c_markets() {
 
 c_bot() {
     check_perl
+    $B_PERL -I $PERL_LIB_DIR -- $B_CREATE_COIN_LIST "$D_DATA/coins" "$F_COIN_DICT"
     $B_PERL -I $PERL_LIB_DIR -- $B_BOTDATA $A_BOTDATA
 }
 
