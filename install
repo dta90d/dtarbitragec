@@ -57,7 +57,7 @@ install_perl() {
 install_cpanm() {
     echo
     echo Installing cpanminus.
-    curl -L https://cpanmin.us | perl - -f -l "$PERL_DIR" App::cpanminus local::lib || exit 1
+    curl -L https://cpanmin.us | perl - -f -l "$PERL_DIR" App::cpanminus || exit 1
     sed -i 's#^PERL_LIB_DIR=.*$#PERL_LIB_DIR="'"$PERL_LIB_DIR"'"#' "$CONFIGURE" # Write perl modules destination to config.
 }
 
@@ -71,7 +71,7 @@ install_modules_r() {
 
 install_modules_o() {
     echo
-    echo Optional perl modules are: \'$PERL_MODULES_OPTIONAL\' \(gd library required\)
+    echo Optional perl modules are: \'$PERL_MODULES_OPTIONAL\'
     echo \(Many deps: takes pretty long to install\)
     while true; do
         echo Proceed with installation? [y/n]:
@@ -151,7 +151,7 @@ echo Optional modules are: \'$PERL_MODULES_OPTIONAL\'. \(To use some of the util
 echo
 echo Choose one of the following:
 echo 1. Install perl via perlbrew and all the modules required via cpanminus to local directory \'./perl\' \(perl compilation takes pretty long time\). Requires: gcc, make, curl.
-echo 2. Install perl modules to local directory \'./perl/perls/stable/lib/perl5\'. Then, currently active perl installation will be used to run the modules. Requires: perl, curl, make, gd.
+echo 2. Install perl modules to local directory \'./perl/perls/stable/lib/perl5\'. Then, currently active perl installation will be used to run the modules. Requires: make, perl, curl.
 echo 3. Skip this step. \(Unable to use and modify the bot. Default market configuration will be used. Monitor mode.\)
 
 while true; do
