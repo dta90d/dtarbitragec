@@ -36,7 +36,7 @@ dtarbitragec is written for Linux in the first place, but if you wish to run it 
 
 ### Requirements
 
-Node.js ^8.0.0, npm, bash/sh, curl, cat, sed, perl (optional).
+Node.js ^8.0.0, bash/sh (with gnu coreutils), curl (optional), perl (optional).
 
 Most of these is by default included in major Linux distributions, so you basically need to install nodejs/npm on your system.
 
@@ -51,6 +51,15 @@ npm install
 ```
 
 Installation script will guide you through the basic installation and configuration.
+
+### Updates
+
+To update dtarbitragec simply run
+```shell
+git pull
+npm install
+```
+in its root directory.
 
 ### Configuration and settings
 
@@ -150,7 +159,7 @@ Just run:
 ```shell
 ./configure markets
 ```
-and turn on/off some of the markets in the configuration file. This will affect opened bots, as they won't be able to get the data from the markets.
+and turn on/off some of the markets in the configuration file. This will affect opened bots, as they won't be able to get the data from the markets after reboot.
 
 #### Finance
 Another peace of settings for the bot, but more static one:
