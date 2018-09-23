@@ -1,0 +1,14 @@
+{
+    "min_cost": { "USD": 10, "BTC": 0.0001, "ETH": 0.001, "EUR": 7  },
+    "max_cost": { "USD": 20, "BTC": 0.0002, "ETH": 0.002, "EUR": 14 },
+    "balance_buffer": { "USD": 100, "BTC": 0.001, "ETH": 0.01, "EUR": 70 },
+    "amount_mult": 0.6,
+    "limit_price_buffer": 0.8,
+    "commission": {
+        "bitfinex": 0.2,
+        "kraken"  : 0.26,
+        "hitbtc"  : 0.1,
+        "bittrex" : 0.25,
+        "poloniex": 0.25
+    }
+}
