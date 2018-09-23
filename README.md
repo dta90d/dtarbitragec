@@ -1,4 +1,4 @@
-[![License: GPL v4](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 # gtarbitragec - cryptocurrency arbitrage master.
 Advanced highly customizable asynchronous cryptocurrency arbitrage bot written for Node.js
