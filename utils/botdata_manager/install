@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# install.sh
+# Written by dta90d on 2017.11.26.
+#
+# Install BotdataManager to the root directory.
+
+SCRIPT="BotdataManager.pm"
+CWD=$(dirname `readlink -f $0`)
+TARGET=$CWD/$SCRIPT
+
+LINK_PLACE=$(readlink -f $CWD/../..)
+LINK_NAME="chbot"
+
+if [ -L "$LINK_PLACE/$LINK_NAME" ]; then rm "$LINK_PLACE/$LINK_NAME"; else echo "$LINK_PLACE/$LINK_NAME"; fi
+cd $LINK_PLACE && ln -s $TARGET $LINK_NAME
+
+echo Botdata Manager was installed in \'$LINK_PLACE\' directory.
+echo Run \'./chbot\' there to know more about the program.
