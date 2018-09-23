@@ -20,10 +20,10 @@ m_help() {
     echo "       mail            mail notifications configuration"
 }
 
-PERL_BIN_DIR=""
-PERL_LIB_DIR=""
+PERL_BIN_DIR="/home/the_creator_of_/w/BRAT/cryptocurrency-arbitrage-master/perl/perls/stable/bin"
+PERL_LIB_DIR="/home/the_creator_of_/w/BRAT/cryptocurrency-arbitrage-master/perl/perls/stable/lib/perl5"
 
-D_PWD="."
+D_PWD="/home/the_creator_of_/w/BRAT/cryptocurrency-arbitrage-master"
 D_DATA="$D_PWD/data"
 D_HELP="$D_PWD/data-static/man"
 D_DEFAULT="$D_PWD/data-static/default"
@@ -35,11 +35,13 @@ F_DEFAULT="" # Default config
 F_TMP=""     # Tmp file
 
 F_MODES="$D_DATA/modes"
-F_COIN_DICT="$D_DATA/coin_dict"
 F_MARKETS="$D_PWD/data-static/coin_dict.full"
 F_FINANCE="$D_DATA/finance"
 F_KEYS="$D_DATA/keys"
 F_MAIL="$D_DATA/mail"
+
+F_COIN_DICT="$D_DATA/coin_dict"
+F_BOTDATA="$D_DATA/botdata"
 
 F_DEFAULT_MODES="$D_DEFAULT/modes"
 F_DEFAULT_MARKETS="$D_DEFAULT/coin_dict.full"
@@ -60,7 +62,7 @@ B_OPTIMIZE="$D_UTILS/coin_dict_check/optimize.pl"
 
 M_EDITOR="Please enter the name of a text editor to use: "
 
-if [ ! -d $D_DATA ]; then mkdir $D_DATA; fi
+if [ ! -d "$D_DATA" ]; then mkdir "$D_DATA"; fi
 
 next() {
     echo \[Press ENTER to continue\]
@@ -68,7 +70,7 @@ next() {
 }
 
 get_editor() {
-    if [ ! $O_EDITOR ]; then
+    if [ ! "$O_EDITOR" ]; then
         echo $M_EDITOR
         read O_EDITOR
     else
@@ -84,7 +86,7 @@ e_editor() {
 
 create_tmp() {
     HELP=`cat $F_HELP`
-    if [ -f $F_CONFIG ]; then
+    if [ -f "$F_CONFIG" ]; then
         CONFIG=`cat $F_CONFIG`
     else
         CONFIG=`cat $F_DEFAULT`
@@ -104,7 +106,7 @@ write_config() {
 }
 
 check_perl() { # If no local perl, use default one.
-    if [ ! -x $B_PERL ]; then
+    if [ ! -x "$B_PERL" ]; then
         B_PERL="perl"
     fi
 }
@@ -148,6 +150,7 @@ c_markets() {
 }
 
 c_bot() {
+    if [ ! -f "$F_BOTDATA" ]; then touch "$F_BOTDATA"; fi
     check_perl
     $B_PERL -I $PERL_LIB_DIR -- $B_CREATE_COIN_LIST "$D_DATA/coins" "$F_COIN_DICT"
     $B_PERL -I $PERL_LIB_DIR -- $B_BOTDATA $A_BOTDATA
