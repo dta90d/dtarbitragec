@@ -36,7 +36,11 @@ dtarbitragec is written for Linux in the first place, but if you wish to run it 
 
 ### Requirements
 
-Node.js ^8.0.0, bash/sh (with gnu coreutils), curl (optional), perl (optional).
+Node.js ^8.0.0, bash/sh (with gnu coreutils).
+
+Optional 1: curl, make, perl. (For bots' and markets' configuration -- system/your perl)
+
+Optional 2: curl, make, gcc. (For bots' and markets' configuration -- local program perl)
 
 Most of these is by default included in major Linux distributions, so you basically need to install nodejs/npm on your system.
 
