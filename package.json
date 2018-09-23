@@ -1,0 +1,40 @@
+{
+  "name": "dtarbitragec",
+  "version": "1.0.0",
+  "description": "Advanced highly customizable asynchronous cryptocurrency arbitrage bot written for Node.js",
+  "main": "dtarbitragec.js",
+  "engines": {
+    "node": "^8.0.0"
+  },
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "express": "^4.15.3",
+    "helmet": "^3.6.1",
+    "request": "^2.81.0",
+    "socket.io": "^2.0.3",
+    "nodemailer": "^4.1.1"
+  },
+  "scripts": {
+    "postinstall": "bash install || sh install",
+    "start": "node dtarbitragec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dta90d/dtarbitragec.git"
+  },
+  "keywords": [
+    "bitfinex",
+    "bittrex",
+    "kraken",
+    "hitbtc",
+    "poloniex",
+    "cryptocurrency",
+    "arbitrage"
+  ],
+  "author": "dta90d",
+  "license": "GNU GPLv3",
+  "bugs": {
+    "url": "https://github.com/dta90d/dtarbitragec/issues"
+  },
+  "homepage": "https://github.com/dta90d/dtarbitragec"
+}
