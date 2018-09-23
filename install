@@ -66,7 +66,6 @@ install_modules_r() {
     
     echo
     "$PERL_BIN_DIR/cpanm" -l "$PERL_DIR" $PERL_MODULES_REQUIRED || exit 1
-    #next
 }
 
 install_modules_o() {
@@ -92,15 +91,13 @@ install_modules_o() {
                 ;;
         esac
     done
-
-    #next
 }
 
 run_configure() {
-    if [ ! $O_EDITOR ]; then
+    while [ ! $O_EDITOR ]; do
         echo "Please enter the name of a text editor to use: "
         read O_EDITOR
-    fi
+    done
     $CONFIGURE -e $O_EDITOR $A_CONFIGURE || exit 1
 }
 
@@ -127,7 +124,7 @@ next() { # Wait for user to read.
 # Script.
 sed -i 's#^D_PWD=.*$#D_PWD="'"$D_PWD"'"#' "$CONFIGURE"
 chmod +x "$CONFIGURE"
-mkdir -p $LOG_DIR
+mkdir -p "$LOG_DIR"
 clear
 echo Installing dtarbitragec program.
 echo
@@ -182,7 +179,7 @@ while true; do
             break
             ;;
         (3) # Info
-            cp "$D_PWD/data-static/default/coin_dict.full" "$D_PWD/data/coin_dict || ( echo "Error coping configuration from 'data-static' to 'data' has occured." && exit 1 )
+            cp "$D_PWD/data-static/default/coin_dict.full" "$D_PWD/data/coin_dict" || ( echo "Error coping configuration from 'data-static' to 'data' has occured." && exit 1 )
             echo
             echo All currently available markets are turned on. Bot is not available.
             echo If you deside to use the bot consider running npm install again and configuring perl.
