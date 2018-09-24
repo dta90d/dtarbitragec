@@ -20,7 +20,7 @@ Note that browser frontend do not include the bots' activity monitoring yet.
 ## Description
 
 The whole idea of the program is to monitor difference between different cryptocurrency markets and hit it when it's big.
-Simple math tells us, that if when the spread is high we sell on one market and buy on the other and reverse the operation when the spread is low (or high in the opposite direction) we just earn free money. (Not so free actually, considering the money freezing due to waiting for that situation to occur).
+Simple math tells us, that if, when the spread is high, we sell on one market and buy on the other and reverse the operation when the spread is low (or high in the opposite direction) we just earn free money. (Not so free actually, considering the money freezing due to waiting for that situation to occur).
 
 That said, dtarbitragec monitors markets set with './configure markets' command, activates bots based on strategy configured with './configure bot' and finance settings configured with './configure finance', using api keys stored through './configure keys', sending mail notifications from real or simulated bots configured via './configure mail' command and writes down monitored data to './textdb' local directory if the history mode is enabled using './configure modes' command.
 
